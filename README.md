@@ -1,5 +1,7 @@
 # cluster-scaler
 
+[![App Status](https://argocd-internal.spirit-dev.net/api/badge?name=cluster-scaler-turingpi&revision=true&showAppName=true)](https://argocd-internal.spirit-dev.net/applications/cluster-scaler-turingpi)
+
 ## Table of content
 
 - [cluster-scaler](#cluster-scaler)
