@@ -1,0 +1,56 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Values.scale_controller.scale_job_sa_name }}-cluster-role
+rules:
+  - apiGroups:
+      - "apps"
+      - ""
+    resources:
+      - "deployments"
+      - "statefulsets"
+      - "pods"
+      - "replicasets"
+    verbs:
+      - "list"
+      - "get"
+      - "delete"
+      - "watch"
+  - apiGroups:
+      - "apps"
+    resources:
+      - statefulsets/scale
+      - deployments/scale
+    verbs:
+      - update
+      - patch
+  - apiGroups:
+      - "spirit-dev.net"
+    resources:
+      - "scalestatuses"
+    verbs:
+      - "get"
+      - "create"
+      - "patch"
+  - apiGroups:
+      - "autoscaling"
+    resources:
+      - "horizontalpodautoscalers"
+    verbs:
+      - "list"
+      - "delete"
+      - "deletecollection"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Values.scale_controller.scale_job_sa_name }}-cluster-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.scale_controller.scale_job_sa_name }}
+    namespace: monitoring
+roleRef:
+  kind: ClusterRole
+  name: {{ .Values.scale_controller.scale_job_sa_name }}-cluster-role
+  apiGroup: rbac.authorization.k8s.io
