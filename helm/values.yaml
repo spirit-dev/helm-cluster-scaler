@@ -27,8 +27,8 @@ scale_controller:
   scale_job_sa_name:
   scale_job_image:
   discord:
-    channel:
-    token:
+    channel: ""
+    token: ""
 
 imagePullSecrets: []
 nameOverride: ""
