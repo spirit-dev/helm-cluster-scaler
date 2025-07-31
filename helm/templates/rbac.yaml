@@ -1,0 +1,48 @@
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "helm.serviceAccountName" . }}-role
+rules:
+  - apiGroups:
+      - spirit-dev.net
+    resources:
+      - upsstatuses
+    verbs:
+      - watch
+      - patch
+  - apiGroups:
+      - spirit-dev.net
+    resources:
+      - scalestatuses
+    verbs:
+      - get
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+    verbs:
+      - list
+      - create
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - list
+      - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "helm.serviceAccountName" . }}-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "helm.serviceAccountName" . }}-sa
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: {{ include "helm.serviceAccountName" . }}-role
+  apiGroup: rbac.authorization.k8s.io
