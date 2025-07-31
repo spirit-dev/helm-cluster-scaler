@@ -1,0 +1,11 @@
+apiVersion: spirit-dev.net/v1
+kind: ScaleStatus
+metadata:
+  name: tpi2-scale
+  namespace: monitoring
+spec:
+  status: "unknown"
+  transition: "unknown"
+  sequence: "unknown"
+  last_transition: "2023-12-27T03:19:01Z"
+  ups_status: "unknown"
