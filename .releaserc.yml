@@ -7,14 +7,8 @@ plugins:
     - replacements:
         - files:
             - helm/Chart.yaml
-          from: 'version: ".*"'
-          to: 'version: "${nextRelease.version}"'
-          results:
-            - file: helm/Chart.yaml
-              hasChanged: true
-              numMatches: 1
-              numReplacements: 1
-          countMatches: true
+          from: "version: .*"
+          to: "version: ${nextRelease.version}"
   - - "@semantic-release/git"
     - assets:
         - config/.workflow.*
