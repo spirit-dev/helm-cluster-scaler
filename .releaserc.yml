@@ -2,6 +2,10 @@
 plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
+  - - "@semantic-release/exec"
+    - verifyReleaseCmd: "echo 'Verifying release ${nextRelease.version}'"
+      prepareCmd: "sed -i 's/version: \"[^\"]*\"/version: \"${nextRelease.version}\"/g' helm/Chart.yaml"
+      publishCmd: "echo 'Updated Chart.yaml version to ${nextRelease.version}'"
   - "@semantic-release/gitlab"
 branches:
   - "main"
